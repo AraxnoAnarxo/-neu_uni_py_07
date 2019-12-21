@@ -104,7 +104,7 @@ event_data = [['event', 'city', 'date', 'band_name', 'band_lineup', 'duration', 
 "Big Balls", "Big Gun", "Jail Break",
 "Meltdown"], 1000000000],['business meeting', 'Kiev', '01.01.2020', 'Verka Serduchka', ['vocalist', 'keyborad player'], 2, ['Dancing Lasha Tumbai', 'Toy', 'Bohemian Rhapsody', 'Dolce Gabanna', 'Trali Vali'], 280000]]
 
-with open('music_for_event' + '_' + str(time_gen) + '.csv', 'w') as f:
+with open('music_for_event.csv', 'w') as f:
     writer = csv.writer(f, delimiter = '&') #
     writer.writerows(event_data)
 print('Writing complete!')
@@ -123,7 +123,7 @@ dict_event_to_json = json.dumps(dict_event)
 
 print(type(dict_event_to_json), dict_event_to_json)
 
-with open('dict_event_to_json' + str(time_gen), 'w') as f:
+with open('dict_event_to_json', 'w') as f:
     json.dump(dict_event, f)
 
 #load, loads
