@@ -13,6 +13,7 @@ with open ('data_event.txt') as f:
 # 3) Автоматически сгенерировать отчет о машине в формате doc (как в видео 7.2).
 
 import datetime
+import time
 
 from docxtpl import DocxTemplate
 from docxtpl import InlineImage
@@ -51,6 +52,7 @@ def generate_report(event, city, date, band_name, band_lineup, duration, set, pr
 def toFixed(numObj, digits=0):
     return f"{numObj:.{digits}f}"
 
+start = time.clock()
 generate_report('wedding', 'Moscow', '31.01.2020', 'ACDC', ['vocalist', 'lead guitarist', 'rhytm guitarist', 'bassist', 'drummer'], 3 , ["Hard As A Rock",
 "Rock N Roll Train", "Stiff Upper Lip",
 "Dirty Deeds Done Dirt Cheap",
@@ -70,6 +72,9 @@ generate_report('wedding', 'Moscow', '31.01.2020', 'ACDC', ['vocalist', 'lead gu
 "Dirty Eyes", "Big Jack", "Play Ball",
 "Big Balls", "Big Gun", "Jail Break",
 "Meltdown"], 1000000000)
+stop = time.clock()
+time_gen = stop - start
+print(time_gen)
 
 #generate_report('business meeting', 'Kiev', '01.01.2020', 'Verka Serduchka', ['vocalist', 'keyborad player'], 2, ['Dancing Lasha Tumbai', 'Toy', 'Bohemian Rhapsody', 'Dolce Gabanna', 'Trali Vali'], 280000 )
 
@@ -99,17 +104,12 @@ event_data = [['event', 'city', 'date', 'band_name', 'band_lineup', 'duration', 
 "Big Balls", "Big Gun", "Jail Break",
 "Meltdown"], 1000000000],['business meeting', 'Kiev', '01.01.2020', 'Verka Serduchka', ['vocalist', 'keyborad player'], 2, ['Dancing Lasha Tumbai', 'Toy', 'Bohemian Rhapsody', 'Dolce Gabanna', 'Trali Vali'], 280000]]
 
-with open('music_for_event.csv', 'w') as f:
+with open('music_for_event' + '_' + str(time_gen) + '.csv', 'w') as f:
     writer = csv.writer(f, delimiter = '&') #
     writer.writerows(event_data)
 print('Writing complete!')
 
-# csv.reader
 
-with open('music_for_event.csv') as f:
-    reader = csv.reader(f, delimiter = '&')
-    for row in reader:
-        print(row)
 
 # 5) Создать json файл с данными.
 
@@ -123,12 +123,12 @@ dict_event_to_json = json.dumps(dict_event)
 
 print(type(dict_event_to_json), dict_event_to_json)
 
-with open('dict_event_to_json', 'w') as f:
+with open('dict_event_to_json' + str(time_gen), 'w') as f:
     json.dump(dict_event, f)
 
 #load, loads
 
-with open('dict_event_to_json') as f:
-    data = json.load(f)
-
-print(data)
+# with open('dict_event_to_json') as f:
+#     data = json.load(f)
+#
+# print(data)
